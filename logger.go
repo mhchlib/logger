@@ -1,8 +1,13 @@
 package logger
 
 import (
-	"github.com/micro/go-micro/v2/util/log"
+	log "github.com/sirupsen/logrus"
+	"runtime"
 )
+
+func init() {
+	//log.SetReportCaller(true)
+}
 
 func Fatal(v ...interface{}) {
 	log.Fatal(v)
@@ -14,4 +19,8 @@ func Error(v ...interface{}) {
 
 func Println(v ...interface{}) {
 	log.Info(v)
+
+	pc, file, line, _ := runtime.Caller(1)
+	f := runtime.FuncForPC(pc)
+	log.Println(file, ":", line, ":", f.Name())
 }
