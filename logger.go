@@ -2,7 +2,6 @@ package logger
 
 import (
 	log "github.com/sirupsen/logrus"
-	"runtime"
 )
 
 func init() {
@@ -10,17 +9,17 @@ func init() {
 }
 
 func Fatal(v ...interface{}) {
-	log.Fatal(v)
+	extra := getExtraData()
+	log.Fatal(extra, v)
 }
 
 func Error(v ...interface{}) {
-	log.Error(v)
+	extra := getExtraData()
+	log.Error(extra, v)
 }
 
-func Println(v ...interface{}) {
-	log.Info(v)
+func Info(v ...interface{}) {
+	extra := getExtraData()
+	log.Info(extra, v)
 
-	pc, file, line, _ := runtime.Caller(1)
-	f := runtime.FuncForPC(pc)
-	log.Println(file, ":", line, ":", f.Name())
 }
