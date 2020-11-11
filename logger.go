@@ -21,5 +21,4 @@ func Error(v ...interface{}) {
 func Info(v ...interface{}) {
 	extra := getExtraData()
 	log.Info(extra, v)
-
 }

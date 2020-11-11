@@ -5,6 +5,7 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"time"
 )
 
 func getCodeDesc() string {
@@ -17,9 +18,16 @@ func getCodeDesc() string {
 	return desc
 }
 
+func getTime() string {
+	now := time.Now()
+	format := now.Format("2006-01-02 15:04:05")
+	return format
+}
+
 func getExtraData() string {
 	codeDesc := getCodeDesc()
-	return "[ " + codeDesc + " ]  "
+	time := getTime()
+	return "[ " + time + " -> " + codeDesc + " ] "
 }
 
 func handleFileName(filename string) string {
