@@ -22,3 +22,8 @@ func Info(v ...interface{}) {
 	extra := getExtraData()
 	log.Info(extra, v)
 }
+
+func Log(v ...interface{}) {
+	extra := getExtraData()
+	log.Info(extra, v)
+}
