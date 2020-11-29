@@ -8,8 +8,15 @@ import (
 	"time"
 )
 
-func getCodeDesc() string {
-	pc, fileName, line, _ := runtime.Caller(3)
+func getCodeDesc(inside bool) string {
+	skip := 0
+	if inside {
+		skip = 5
+	} else {
+		skip = 4
+	}
+	pc, fileName, line, _ := runtime.Caller(skip)
+
 	f := runtime.FuncForPC(pc)
 	funcName := f.Name()
 	fileName = handleFileName(fileName)
@@ -24,8 +31,8 @@ func getTime() string {
 	return format
 }
 
-func getExtraData() string {
-	codeDesc := getCodeDesc()
+func getMetaData(inside bool) string {
+	codeDesc := getCodeDesc(inside)
 	time := getTime()
 	return "[ " + time + " -> " + codeDesc + " ] "
 }

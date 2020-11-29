@@ -1,29 +1,28 @@
 package logger
 
-import (
-	log "github.com/sirupsen/logrus"
-)
-
-func init() {
-	//log.SetReportCaller(true)
+type Logger interface {
+	Info(v ...interface{})
+	Error(v ...interface{})
+	Fatal(v ...interface{})
+	Log(keyvals ...interface{}) error
 }
 
-func Fatal(v ...interface{}) {
-	extra := getExtraData()
-	log.Fatal(extra, v)
+type DefaultLogger struct {
 }
 
-func Error(v ...interface{}) {
-	extra := getExtraData()
-	log.Error(extra, v)
+func (d DefaultLogger) Info(v ...interface{}) {
+	doInfo(true, v)
 }
 
-func Info(v ...interface{}) {
-	extra := getExtraData()
-	log.Info(extra, v)
+func (d DefaultLogger) Error(v ...interface{}) {
+	doError(true, v)
 }
 
-func Log(v ...interface{}) {
-	extra := getExtraData()
-	log.Info(extra, v)
+func (d DefaultLogger) Fatal(v ...interface{}) {
+	doFatal(true, v)
+}
+
+func (d DefaultLogger) Log(v ...interface{}) error {
+	d.Info(v)
+	return nil
 }
