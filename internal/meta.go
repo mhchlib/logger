@@ -1,4 +1,4 @@
-package logger
+package internal
 
 import (
 	"fmt"
@@ -8,11 +8,9 @@ import (
 	"time"
 )
 
-func getCodeDesc(inside bool) string {
-	skip := 0
-	if inside {
-		skip = 5
-	} else {
+func GetCodeDesc(internal bool) string {
+	skip := 3
+	if internal {
 		skip = 4
 	}
 	pc, fileName, line, _ := runtime.Caller(skip)
@@ -25,32 +23,26 @@ func getCodeDesc(inside bool) string {
 	return desc
 }
 
-func getTime() string {
+func GetTime() string {
 	now := time.Now()
 	format := now.Format("2006-01-02 15:04:05")
 	return format
 }
 
-func getMetaData(inside bool) string {
-	codeDesc := getCodeDesc(inside)
-	time := getTime()
-	return "[ " + time + " -> " + codeDesc + " ] "
-}
-
 func handleFileName(filename string) string {
 	splits := strings.Split(filename, string(os.PathSeparator))
-	len := len(splits)
-	if len > 2 {
-		filename = splits[len-2] + string(os.PathSeparator) + splits[len-1]
+	length := len(splits)
+	if length > 2 {
+		filename = splits[length-2] + string(os.PathSeparator) + splits[length-1]
 	}
 	return filename
 }
 
 func handleFunName(funcName string) string {
 	splits := strings.Split(funcName, string(os.PathSeparator))
-	len := len(splits)
-	if len > 1 {
-		funcName = splits[len-1]
+	length := len(splits)
+	if length > 1 {
+		funcName = splits[length-1]
 	}
 	return funcName
 }
