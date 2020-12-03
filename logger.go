@@ -33,12 +33,30 @@ func newLogger(options []LogOption) Logger {
 
 func (d *DefaultLogger) getExtraData() []interface{} {
 	var codeDesc = ""
-	if d.opt.enableCodeData {
-		codeDesc = log.GetCodeDesc(d.internal)
-	}
 	metaData := d.opt.metaData
 	time := log.GetTime()
-	return []interface{}{time, metaData, codeDesc}
+	data := []interface{}{time}
+	if len(metaData) != 0 {
+		data = append(data, metaData)
+	}
+	if d.opt.enableCodeData {
+		codeDesc = log.GetCodeDesc(d.internal)
+		data = append(data, codeDesc)
+	}
+	return data
+}
+
+func filter(data []interface{}) []interface{} {
+	newData := []interface{}{}
+	for _, v := range data {
+		if v != nil {
+			newData = append(newData, v)
+		}
+	}
+	if len(newData) == 0 {
+		return nil
+	}
+	return newData
 }
 
 func (d *DefaultLogger) enableInternalLogger() {
