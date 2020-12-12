@@ -65,17 +65,20 @@ func (d *DefaultLogger) enableInternalLogger() {
 
 func (d *DefaultLogger) Info(v ...interface{}) {
 	extraData := d.getExtraData()
-	log.DoInfo(extraData, v)
+	v = append(extraData, v...)
+	log.DoInfo(v...)
 }
 
 func (d *DefaultLogger) Error(v ...interface{}) {
 	extraData := d.getExtraData()
-	log.DoError(extraData, v)
+	v = append(extraData, v...)
+	log.DoError(v...)
 }
 
 func (d *DefaultLogger) Fatal(v ...interface{}) {
 	extraData := d.getExtraData()
-	log.DoFatal(extraData, v)
+	v = append(extraData, v...)
+	log.DoFatal(v...)
 }
 
 func (d *DefaultLogger) Log(v ...interface{}) error {
