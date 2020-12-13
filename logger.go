@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"encoding/json"
 	log "github.com/mhchlib/logger/internal"
 )
 
@@ -37,7 +38,8 @@ func (d *DefaultLogger) getExtraData() []interface{} {
 	time := log.GetTime()
 	data := []interface{}{time}
 	if len(metaData) != 0 {
-		data = append(data, metaData)
+		metaBytes, _ := json.Marshal(metaData)
+		data = append(data, string(metaBytes))
 	}
 	if d.opt.enableCodeData {
 		codeDesc = log.GetCodeDesc(d.internal)
