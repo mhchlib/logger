@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"encoding/json"
 	log "github.com/mhchlib/logger/internal"
 )
 
@@ -8,6 +9,7 @@ type Logger interface {
 	Info(v ...interface{})
 	Error(v ...interface{})
 	Fatal(v ...interface{})
+	Debug(v ...interface{})
 	Log(v ...interface{}) error
 }
 
@@ -37,7 +39,8 @@ func (d *DefaultLogger) getExtraData() []interface{} {
 	time := log.GetTime()
 	data := []interface{}{time}
 	if len(metaData) != 0 {
-		data = append(data, metaData)
+		metaBytes, _ := json.Marshal(metaData)
+		data = append(data, string(metaBytes))
 	}
 	if d.opt.enableCodeData {
 		codeDesc = log.GetCodeDesc(d.internal)
@@ -65,20 +68,29 @@ func (d *DefaultLogger) enableInternalLogger() {
 
 func (d *DefaultLogger) Info(v ...interface{}) {
 	extraData := d.getExtraData()
-	log.DoInfo(extraData, v)
+	v = append(extraData, v...)
+	log.DoInfo(v...)
 }
 
 func (d *DefaultLogger) Error(v ...interface{}) {
 	extraData := d.getExtraData()
-	log.DoError(extraData, v)
+	v = append(extraData, v...)
+	log.DoError(v...)
 }
 
 func (d *DefaultLogger) Fatal(v ...interface{}) {
 	extraData := d.getExtraData()
-	log.DoFatal(extraData, v)
+	v = append(extraData, v...)
+	log.DoFatal(v...)
 }
 
 func (d *DefaultLogger) Log(v ...interface{}) error {
 	d.Info(v)
 	return nil
+}
+
+func (d *DefaultLogger) Debug(v ...interface{}) {
+	extraData := d.getExtraData()
+	v = append(extraData, v...)
+	log.DoDebug(v...)
 }
