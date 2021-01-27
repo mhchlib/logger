@@ -9,6 +9,7 @@ type Logger interface {
 	Info(v ...interface{})
 	Error(v ...interface{})
 	Fatal(v ...interface{})
+	Debug(v ...interface{})
 	Log(v ...interface{}) error
 }
 
@@ -86,4 +87,10 @@ func (d *DefaultLogger) Fatal(v ...interface{}) {
 func (d *DefaultLogger) Log(v ...interface{}) error {
 	d.Info(v)
 	return nil
+}
+
+func (d *DefaultLogger) Debug(v ...interface{}) {
+	extraData := d.getExtraData()
+	v = append(extraData, v...)
+	log.DoDebug(v...)
 }
