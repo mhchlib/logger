@@ -5,7 +5,6 @@ import (
 )
 
 func init() {
-	log.SetLevel(log.DebugLevel)
 }
 
 func DoInfo(v ...interface{}) {
