@@ -3,6 +3,7 @@ package logger
 import (
 	"encoding/json"
 	log "github.com/mhchlib/logger/internal"
+	"io"
 )
 
 type Logger interface {
@@ -11,6 +12,7 @@ type Logger interface {
 	Fatal(v ...interface{})
 	Debug(v ...interface{})
 	Log(v ...interface{}) error
+	OutWrite() io.Writer
 }
 
 type DefaultLogger struct {
@@ -93,4 +95,13 @@ func (d *DefaultLogger) Debug(v ...interface{}) {
 	extraData := d.getExtraData()
 	v = append(extraData, v...)
 	log.DoDebug(v...)
+}
+
+func (d *DefaultLogger) OutWrite() io.Writer {
+	return d
+}
+
+func (d *DefaultLogger) Write(p []byte) (n int, err error) {
+	log.DoPrint(string(p))
+	return len(p), nil
 }

@@ -1,6 +1,9 @@
 package logger
 
-import log "github.com/sirupsen/logrus"
+import (
+	log "github.com/sirupsen/logrus"
+	"io"
+)
 
 func Error(v ...interface{}) {
 	logger.Error(v...)
@@ -16,6 +19,10 @@ func Debug(v ...interface{}) {
 
 func Fatal(v ...interface{}) {
 	logger.Fatal(v...)
+}
+
+func OutWrite() io.Writer {
+	return logger.OutWrite()
 }
 
 func SetDebugLogLevel() {
