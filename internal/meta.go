@@ -19,7 +19,7 @@ func GetCodeDesc(internal bool) string {
 	funcName := f.Name()
 	fileName = handleFileName(fileName)
 	funcName = handleFunName(funcName)
-	desc := fmt.Sprintf("%s:%d %s", fileName, line, funcName)
+	desc := fmt.Sprintf("%s:%d %s ", fileName, line, funcName)
 	return desc
 }
 
