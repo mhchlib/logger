@@ -1,6 +1,9 @@
 package logger
 
-import "testing"
+import (
+	log "github.com/sirupsen/logrus"
+	"testing"
+)
 
 func TestInfo1(t *testing.T) {
 	Info("111", "222", "333")
@@ -14,4 +17,8 @@ func TestInfo2(t *testing.T) {
 		MetaData("key3", "value3"),
 	)
 	l.Info("111", "222", "333")
+}
+
+func TestInfo3(t *testing.T) {
+	log.Info("???", "xxxxx")
 }

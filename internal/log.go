@@ -9,21 +9,41 @@ func init() {
 }
 
 func DoInfo(v ...interface{}) {
-	log.Info(v...)
+	var vv []interface{}
+	for _, i := range v {
+		vv = append(vv, i, " ")
+	}
+	log.Info(vv...)
 }
 
 func DoError(v ...interface{}) {
-	log.Error(v...)
+	var vv []interface{}
+	for _, i := range v {
+		vv = append(vv, i, " ")
+	}
+	log.Error(vv...)
 }
 
 func DoFatal(v ...interface{}) {
-	log.Fatal(v...)
+	var vv []interface{}
+	for _, i := range v {
+		vv = append(vv, i, " ")
+	}
+	log.Fatal(vv...)
 }
 
 func DoDebug(v ...interface{}) {
-	log.Debug(v...)
+	var vv []interface{}
+	for _, i := range v {
+		vv = append(vv, i, " ")
+	}
+	log.Debug(vv...)
 }
 
 func DoPrint(v ...interface{}) {
-	fmt.Print(v...)
+	var vv []interface{}
+	for _, i := range v {
+		vv = append(vv, i, " ")
+	}
+	fmt.Print(vv...)
 }
