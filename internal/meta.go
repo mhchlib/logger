@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// GetCodeDesc ...
 func GetCodeDesc(internal bool) string {
 	skip := 3
 	if internal {
@@ -23,6 +24,7 @@ func GetCodeDesc(internal bool) string {
 	return desc
 }
 
+// GetTime ...
 func GetTime() string {
 	now := time.Now()
 	format := now.Format("2006-01-02 15:04:05")

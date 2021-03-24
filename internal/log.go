@@ -8,6 +8,7 @@ import (
 func init() {
 }
 
+// DoInfo ...
 func DoInfo(v ...interface{}) {
 	var vv []interface{}
 	for _, i := range v {
@@ -16,6 +17,7 @@ func DoInfo(v ...interface{}) {
 	log.Info(vv...)
 }
 
+// DoError ...
 func DoError(v ...interface{}) {
 	var vv []interface{}
 	for _, i := range v {
@@ -24,6 +26,7 @@ func DoError(v ...interface{}) {
 	log.Error(vv...)
 }
 
+// DoFatal ...
 func DoFatal(v ...interface{}) {
 	var vv []interface{}
 	for _, i := range v {
@@ -32,6 +35,7 @@ func DoFatal(v ...interface{}) {
 	log.Fatal(vv...)
 }
 
+// DoDebug ...
 func DoDebug(v ...interface{}) {
 	var vv []interface{}
 	for _, i := range v {
@@ -40,6 +44,7 @@ func DoDebug(v ...interface{}) {
 	log.Debug(vv...)
 }
 
+// DoPrint ...
 func DoPrint(v ...interface{}) {
 	var vv []interface{}
 	for _, i := range v {
